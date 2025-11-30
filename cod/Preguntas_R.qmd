@@ -25,6 +25,11 @@ salario.promedio <- mean(datos$SALARIO, na.rm = TRUE)
 mediana.salario <- median(datos$SALARIO, na.rm = TRUE)
 ```
 
+#Pregunta 3
+```{r}
+datos <- datos |> 
+  mutate(EDAD_ATÍPICA = ifelse(abs((EDAD-edad.promedio)/sd(datos$EDAD, na.rm = TRUE)) >1.96, "SÍ", "NO"),
+         SALARIO_ATÍPICO = ifelse(abs((SALARIO-salario.promedio)/sd(datos$SALARIO, na.rm = TRUE)) >1.96, "SÍ", "NO"))
 
-
+```
 
