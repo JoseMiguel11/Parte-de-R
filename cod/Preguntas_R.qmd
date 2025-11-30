@@ -148,4 +148,168 @@ datos |>
 
 ```
 
+#Pregunta 7
+```{r}
+# Porcentaje de morosidad según sexo
+morosos.sexo <- datos |> 
+  filter(INDICADOR_MOROSO == "SI") |> 
+  count(SEXO)
+morosos.hombres <- morosos.sexo$n[1]
+morosos.mujeres <- morosos.sexo$n[2]
+
+cuenta <- datos |> 
+  count(SEXO)
+
+total.hombres <- cuenta$n[1]
+total.mujeres <- cuenta$n[2]
+
+morosidad.por.sexo <- data.frame(
+  "SEXO" = c("HOMBRE", "MUJER"),
+  "PORCENTAJE" = c((morosos.hombres/total.hombres)*100,(morosos.mujeres/total.mujeres)*100)
+)
+
+# Gráfico:
+morosidad.por.sexo |> 
+  ggplot(aes(x = SEXO, y = PORCENTAJE, fill = SEXO)) +
+  geom_col() +
+  theme_minimal()
+
+# Análisis: Hay más porcentaje de morosidad en hombres que es mujeres, esto puede deberse a que los  hombres tengan más obligaciones financieras o   que haya mayor inestabilidad laboral, o que les cuesta más pagar; o que son más desordenados con el dinero
+
+
+# Porcentaje de morosidad según tipo de aseguramiento:
+
+morosos.aseguramiento <- datos |> 
+  filter(INDICADOR_MOROSO == "SI") |> 
+  count(TIPO_ASEGURAMIENTO)
+morosos.asalariado <- morosos.aseguramiento$n[2]
+morosos.asegurado.voluntario <- morosos.aseguramiento$n[3]
+morosos.asegurado.convenio.independiente <- morosos.aseguramiento$n[4]
+morosos.asegurado.independiente <- morosos.aseguramiento$n[5]
+
+cuenta.1 <- datos |> 
+  count(TIPO_ASEGURAMIENTO)
+
+total.asalariado <- cuenta.1$n[2]
+total.voluntario <- cuenta.1$n[3]
+total.convenio.voluntario <- cuenta.1$n[4]
+total.convenio.independiente <- cuenta.1$n[5]
+total.propio.sistema <- cuenta.1$n[6]
+total.independiente <- cuenta.1$n[7]
+
+unique(datos$TIPO_ASEGURAMIENTO)
+
+morosidad.por.aseguramiento <- data.frame(
+  "TIPO" = c("ASALARIADO", "PENSIONADOS EN SU PROPIO SISTEMA", "ASEGURADO VOLUNTARIO",
+             "TRABAJADOR INDEPENDIENTE","CONVENIOS ESPECIALES DE TRABAJADORES INDEPENDIENTES",
+             "CONVENIOS ESPECIALES DE ASEGURADOS VOLUNTARIOS"),
+  "PORCENTAJE" = c((morosos.asalariado/total.asalariado)*100,
+                   0,
+                   (morosos.asegurado.voluntario/total.voluntario)*100,
+                   (morosos.asegurado.independiente/total.independiente)*100,
+                   (morosos.asegurado.convenio.independiente/total.convenio.independiente)*100,
+                   0)
+)
+
+
+# Gráfico:
+morosidad.por.aseguramiento |> 
+  ggplot(aes(x = TIPO, y = PORCENTAJE, fill = TIPO)) +
+  geom_col() +
+  coord_flip() +
+  guides(fill = "none") +
+  theme_minimal()
+
+# Análisis: Se puede observar que la mayoría de trabajadores  independientes están en morosidad, esto puede deberse a causa de que por lo general los trabajadores independientes no tiene una fuente de ingresos fija, así que a como pueden obtener más ingresos en un mes, también pueden ganar muy poco al otro mes, lo cual podría hacer que se les dificulte efectuar los pagos a tiempo. Mientras que  pensionados en su propio sistema y con convenios especiales de asegurados voluntarios tiene 0% de morosidad posiblemente debido a que como cumplían con su seguro obligatorio pero pueden aspirar a uno voluntario también
+
+
+
+# Porcentaje de morosidad según sector
+morosos.sector <- datos |> 
+  filter(INDICADOR_MOROSO == "SI") |> 
+  count(SECTOR)
+morosos.privado <- morosos.sector$n[1]
+morosos.publico <- morosos.sector$n[2]
+
+cuenta.2 <- datos |> 
+  count(SECTOR)
+
+total.privado <- cuenta.2$n[1]
+total.publico <- cuenta.2$n[2]
+
+
+morosidad.por.sector <- data.frame(
+  "SECTOR" = c("PUBLICO", "PRIVADO"),
+  "PORCENTAJE" = c((morosos.publico/total.publico)*100, (morosos.privado/total.privado)*100)
+)
+
+
+# Gráfico:
+morosidad.por.sector |> 
+  ggplot(aes(x = SECTOR, y = PORCENTAJE, fill = SECTOR)) +
+  geom_col() +
+  theme_minimal()
+
+# Análisis: Podemos observar que el porcentaje de morosidad en el sectorvpúblico y privado no es muy distinto, por lo que se podría decir que el sector en el que se trabaje, ya sea público o privado, no tiene una gran influencia en si se paga o no
+
+
+# Porcentaje de morosidad según si está activo o no
+morosos.activo <- datos |> 
+  filter(INDICADOR_MOROSO == "SI") |> 
+  count(INDICADOR_ACTIVO)
+morosos.no <- morosos.activo$n[1]
+morosos.si <- morosos.activo$n[2]
+
+cuenta.3 <- datos |> 
+  count(INDICADOR_ACTIVO)
+
+total.no <- cuenta.3$n[1]
+total.si <- cuenta.3$n[2]
+
+
+morosidad.por.actividad <- data.frame(
+  "ACTIVO" = c("SI", "NO"),
+  "PORCENTAJE" = c((morosos.si/total.si)*100, (morosos.no/total.no)*100)
+)
+
+
+# Gráfico:
+morosidad.por.actividad |> 
+  ggplot(aes(x = ACTIVO , y = PORCENTAJE, fill = ACTIVO)) +
+  geom_col() +
+  theme_minimal()
+
+# Análisis: Podemos ver en el gráfico que más del 50% de personas que no están activas laboralmente se encuentran en estado de morosidad mientras que menos del 20% de personas activas están en morosidad
+
+
+# Porcentaje de morosidad según si es extranjero o no
+morosos.extranjero <- datos |> 
+  filter(INDICADOR_MOROSO == "SI") |> 
+  count(INDICADOR.EXTRANJERO)
+morosos.no.e <- morosos.extranjero$n[1]
+morosos.si.e <- morosos.extranjero$n[2]
+
+cuenta.4 <- datos |> 
+  count(INDICADOR.EXTRANJERO)
+
+total.no.e <- cuenta.4$n[1]
+total.si.e <- cuenta.4$n[2]
+
+
+morosidad.por.extranjero <- data.frame(
+  "EXTRANJERO" = c("SI", "NO"),
+  "PORCENTAJE" = c((morosos.si.e/total.si.e)*100, (morosos.no.e/total.no.e)*100)
+)
+
+
+# Gráfico:
+morosidad.por.extranjero |> 
+  ggplot(aes(x = EXTRANJERO , y = PORCENTAJE, fill = EXTRANJERO)) +
+  geom_col() +
+  theme_minimal()
+
+# Análisis: En el gráfico se puede apreciar que casi el 25% de las personas  extarnjeras están en estado de morosidad; esto tal vez sea causado por que los extranjeros no tienen muy claras las leyes que rigen en Costa Rica y por ende se atrasen u olviden hacer los pagos correspondientes
+
+
+```
 
