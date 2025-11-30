@@ -33,3 +33,16 @@ datos <- datos |>
 
 ```
 
+#Pregunta #4
+```{r}
+porcentaja.na.identificacion <- (sum(is.na(datos$IDENTIFICACION) == TRUE)/nrow(datos)*100)
+porcentaja.na.sexo <- (sum(is.na(datos$SEXO) == TRUE)/nrow(datos)*100) 
+porcentaja.na.salario <- (sum(is.na(datos$SALARIO) == TRUE)/nrow(datos)*100)
+porcentaja.na.tipo.aseguramiento <- (sum(is.na(datos$TIPO_ASEGURAMIENTO) == TRUE)/nrow(datos)*100)
+porcentaja.na.sector <- (sum(is.na(datos$SECTOR) == TRUE)/nrow(datos)*100)
+porcentaja.na.indicador.activo <- (sum(is.na(datos$INDICADOR_ACTIVO) == TRUE)/nrow(datos)*100)
+porcentaja.na.indicador.extranjero <- (sum(is.na(datos$INDICADOR.EXTRANJERO) == TRUE)/nrow(datos)*100)
+porcentaja.na.indicador.moroso <- (sum(is.na(datos$INDICADOR_MOROSO) == TRUE)/nrow(datos)*100)
+porcentaja.na..edad <- (sum(is.na(datos$EDAD) == TRUE)/nrow(datos)*100)
+```
+
