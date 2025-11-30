@@ -313,3 +313,34 @@ morosidad.por.extranjero |>
 
 ```
 
+#Pregunta 8
+```{r}
+# Cantidad de morosos y no morosos según rangos de edad:
+# función cut: https://www.statology.org/cut-function-in-r/
+ggplot(datos, aes(x = cut(EDAD, breaks = 10), fill = INDICADOR_MOROSO)) +
+  geom_bar() +
+  labs(title = "Cantidad de morosos y no morosos según rangos de edad",
+       x = "Rango de Edad",
+       y = "Cantidad",
+       fill = "Moroso") +
+  theme_minimal() +
+  coord_flip()
+
+# Análisis: En general se puede observar que las edades extremas, como lo son de 14 a 22.5 y más de 65 años tienen menos personas en estado de morosidad que el resto esto quizá sea debido a que los más jóvenes aún no han tenido muchas  obligaciones de pago, y por parte de los mayores a 65 puede deberse a que poco a poco han ido pagando. En general las edades de 22.5 a 65 tienen una cantidad parecida de personas en estado de morosidad
+
+
+# Cantidad de morosos y no morosos según rangos de salario:
+datos |> 
+  mutate(Clasificación = ifelse(datos$SALARIO < 350000, "Bajo", ifelse(datos$SALARIO<800000, "Medio", "Alto"))) |> 
+  ggplot(aes(x = Clasificación, fill = INDICADOR_MOROSO)) +
+  geom_bar() +
+  labs(title = "Cantidad de morosos y no morosos según rangos de salario",
+       x = "Rango de Salario",
+       y = "Cantidad",
+       fill = "Moroso") +
+  theme_minimal()
+
+# Análisis: En el gráfico se puede observar un resultado que era de esperar, la morosidad en las personas que tienen mayor cantidad de ingresos es menor que los rangos que pagan menos de 800 000 colones, pero impresinantemente la cantidad de morosos entre las personas que ganan menos de 350 000 y las que ganan  más de 350 000 pero menos de 800 000 es casi la misma
+
+```
+
