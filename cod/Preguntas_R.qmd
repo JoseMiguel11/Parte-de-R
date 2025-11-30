@@ -33,7 +33,7 @@ datos <- datos |>
 
 ```
 
-#Pregunta #4
+#Pregunta 4
 ```{r}
 porcentaja.na.identificacion <- (sum(is.na(datos$IDENTIFICACION) == TRUE)/nrow(datos)*100)
 porcentaja.na.sexo <- (sum(is.na(datos$SEXO) == TRUE)/nrow(datos)*100) 
@@ -44,5 +44,13 @@ porcentaja.na.indicador.activo <- (sum(is.na(datos$INDICADOR_ACTIVO) == TRUE)/nr
 porcentaja.na.indicador.extranjero <- (sum(is.na(datos$INDICADOR.EXTRANJERO) == TRUE)/nrow(datos)*100)
 porcentaja.na.indicador.moroso <- (sum(is.na(datos$INDICADOR_MOROSO) == TRUE)/nrow(datos)*100)
 porcentaja.na..edad <- (sum(is.na(datos$EDAD) == TRUE)/nrow(datos)*100)
+```
+
+#Pregunta 5
+```{r}
+# Solamente la edad y salario tienen NA:
+datos <- datos |> 
+  mutate(EDAD = ifelse(is.na(EDAD) == T,round(edad.promedio),EDAD),
+         SALARIO = ifelse(is.na(SALARIO) == T,mediana.salario,SALARIO))
 ```
 
