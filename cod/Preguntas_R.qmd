@@ -1,0 +1,30 @@
+---
+title: "Preguntas_R"
+format: html
+editor: visual
+---
+
+#Carga de las librarías
+```{r}
+library(dplyr)
+library(ggplot2)
+library(readr)
+```
+
+#Importación de los datos
+```{r}
+datos <- read.csv("~/Herramientas de ciencias de Datos I/Examen II/R/data/moras.txt", sep = ",", dec = ",")
+```
+
+#Pregunta 2
+```{r}
+edad.promedio <- mean(datos$EDAD, na.rm = TRUE)
+edad.mínima <- min(datos$EDAD, na.rm = TRUE)
+edad.maxima <- max(datos$EDAD, na.rm = TRUE)
+salario.promedio <- mean(datos$SALARIO, na.rm = TRUE)
+mediana.salario <- median(datos$SALARIO, na.rm = TRUE)
+```
+
+
+
+
