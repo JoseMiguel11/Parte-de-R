@@ -343,4 +343,19 @@ datos |>
 # Análisis: En el gráfico se puede observar un resultado que era de esperar, la morosidad en las personas que tienen mayor cantidad de ingresos es menor que los rangos que pagan menos de 800 000 colones, pero impresinantemente la cantidad de morosos entre las personas que ganan menos de 350 000 y las que ganan  más de 350 000 pero menos de 800 000 es casi la misma
 
 ```
+#Pregunta 10
+```{r}
+#función de los árboles obtenida de: https://fervilber.github.io/Aprendizaje-supervisado-en-R/arboles.html y de https://rpubs.com/jboscomendoza/arboles_decision_clasificacion
+
+library(rpart)
+library(rpart.plot)
+
+arbol.sexo <- rpart(SECTOR~SEXO+EDAD_ATÍPICA+SALARIO_ATÍPICO+INDICADOR.EXTRANJERO+INDICADOR_ACTIVO, data = datos)
+
+rpart.plot(arbol.sexo)
+
+# Interpretación: el título de la caja nos dice cual es la clase mayoritaria, en este caso el sector privado, con una proporción del 22% y datos en todas las observaciones, eso es representado por el 100% que está abajo del 0.22; luego  divide entre entranjeros y no extranjeros, para el caso de no estranjeros, osea nacionales, saca una rama nuevamente del sector privado, esta vez quiere decir que el 25% y 88% de datos en todas las observaciones.
+
+# Se puede interpretar yendose hasta la parte más abajo del árbol y fijándose en el valor porcentual de abajo, este número representará el riesgo de los elementos por los que se hayan pasado anteriormente, entonces ese porcentaje representará el riesgo de que una persona quede en estado de mora dado que cumple determinadas características.
+```
 
