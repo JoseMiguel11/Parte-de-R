@@ -53,4 +53,99 @@ datos <- datos |>
   mutate(EDAD = ifelse(is.na(EDAD) == T,round(edad.promedio),EDAD),
          SALARIO = ifelse(is.na(SALARIO) == T,mediana.salario,SALARIO))
 ```
+#Pregunta 6
+```{r}
+# Gráfico de la distribución de sexo
+datos |> 
+  ggplot(aes(x = SEXO,fill = SEXO)) +
+  geom_bar() +
+  labs(title = "Distribución de datos por sexo",
+         y = "Cantidad",
+         x = "Sexo")
+
+# Análisis: La mayoría de las personas son hombres lo que indica que la mayor parte de la fueza laboral para este caso está representada por hombres
+
+
+# Distribución de datos por tipo de aseguramiento
+datos |> 
+  count(TIPO_ASEGURAMIENTO) |> 
+  ggplot(aes(x = n,y = TIPO_ASEGURAMIENTO, fill = TIPO_ASEGURAMIENTO)) +
+  geom_col() +
+  labs(title = "Distribución de datos por tipo de aseguramiento",
+         y = "Cantidad",
+         x = "Tipo de Aseguramiento") +
+  guides(fill = "none") + # Eliminar el código de colores de la parte derecha
+  theme_minimal()
+
+# Análisis: La mayor parte de los datos se concentra en los asalariados, siendo casi 3500 personas, mientras que el que tiene menor cantidad son los que tienen convenios especiales de asegurados voluntarios
+
+
+#Distribución de datos según sector
+datos |> 
+  ggplot(aes(x = SECTOR,fill = SECTOR)) +
+  geom_bar() +
+  labs(title = "Distribución de datos por sexo",
+         y = "Cantidad",
+         x = "Sector")
+
+# Análisis: 3906 personas son del sector privado, representando el 78% del total, mientas que solamente el 22% del total de personas son del sector público con un  total de 1094 personas
+
+
+#Distribución de datos según si está activo o no
+datos |> 
+  ggplot(aes(x = INDICADOR_ACTIVO,fill = INDICADOR_ACTIVO)) +
+  geom_bar() +
+  labs(title = "Distribución de datos según si está activo o no",
+         y = "Cantidad",
+         x = "Activo")
+
+# Análisis: Muy pocas personas están inactivas, solamente 34, mientras que 4966 sí se encuentran activas, representando un gran porcentaje del total
+
+
+#Distribución de datos según si es extranjero o no
+datos |> 
+  ggplot(aes(x = INDICADOR.EXTRANJERO,fill = INDICADOR.EXTRANJERO)) +
+  geom_bar() +
+  labs(title = "Distribución de datos según si es extranjero o no",
+         y = "Cantidad",
+         x = "Extranjero")
+
+# Análisis: La gran mayoría de las personas son nacionales, mientras una menor parte es extranjera
+
+
+#Distribución de datos según si es moroso o no
+datos |> 
+  ggplot(aes(x = INDICADOR_MOROSO,fill = INDICADOR_MOROSO)) +
+  geom_bar() +
+  labs(title = "Distribución de datos según si es moroso o no",
+         y = "Cantidad",
+         x = "Moroso")
+
+# Análisis: Hay pocos morosos en comparación a los no morosos pero esa cantidad de morosos puede representar un problema pues representa casi un 20% del total y son personas que deben
+
+
+
+#Distribución de datos según si la edad es atícipa o no 
+datos |> 
+  ggplot(aes(x = EDAD_ATÍPICA,fill = EDAD_ATÍPICA)) +
+  geom_bar() +
+  labs(title = "Distribución de datos según si es moroso o no",
+         y = "Cantidad",
+         x = "Edad Atípica")
+
+# Análisis: Hay pocos valores atícicos en la edad a comparación de las edades que no son atípicas, algo que por lo  general se cumple pues debe tender a ser una  distribución normal, esto se cumple si un porcentaje bajo de los valores son atípicos
+
+
+#Distribución de datos según si el salario es atípico o no
+datos |> 
+  ggplot(aes(x = SALARIO_ATÍPICO,fill = SALARIO_ATÍPICO)) +
+  geom_bar() +
+  labs(title = "Distribución de datos según si es moroso o no",
+         y = "Cantidad",
+         x = "Salario atípico")
+
+# Análisis: Nuevamente hay muy pocos valores atípicos en los salarios lo que indica que sí se pueden distribuir como una función normal
+
+```
+
 
